@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Odin Library</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="index.html">Library</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="add-book_container">
+    <div class="add-book_overlay">
+      <div class="add-book_title">Add Books!</div>
+      <div class="add-book_subtitle">Books will appear below as cards</div>
+      <button id="add-book_btn">Add Book</button>
+    </div>
+    <dialog id="add-book_dialog" class="add-book_modal">
+      <form action="" class="add-book_modal_form">
+        <button class="add-book_modal_close" type="button">&times;</button>
+        <h2 class="add-book_modal_title">Book Details</h2>
+        <hr>
+        <p>Required (*)</p>
+        <label for="book-title" class="add-book_modal_form_label">
+          Title*
+          <input type="text"
+                 name="book-title"
+                 id="book-title"
+                 placeholder="Title..."
+                 required>
+        </label>
+        <label for="book-author" class="add-book_modal_form_label">
+          Author*
+          <input type="text"
+                 name="book-author"
+                 id="book-author"
+                 placeholder="Author..."
+                 required>
+        </label>
+        <label for="book-num-of-pages" class="add-book_modal_form_label">
+          Number of Pages*
+          <input type="tel"
+                 name="book-num-of-pages"
+                 id="book-num-of-pages"
+                 placeholder="123"
+                 pattern="^\d+$"
+                 required>
+        </label>
+        <div class="last-row-container">
+          <div class="last-row-container_content">
+            <div class="last-row-container_content_have-read-container">
+              <label for="book-have-read" class="switch">
+                <input type="checkbox"
+                      name="book-have-read"
+                      id="book-have-read">
+                <span class="slider round"></span>
+              </label>
+              <span>I have not read this</span>
+            </div>
+            <button id="add-book_save" type="submit">Save</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+    <div class="background-image-citation">
+      Photo by
+      <a href="https://unsplash.com/@tama66?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+        Peter Herrmann
+      </a>
+      on
+      <a href="https://unsplash.com/photos/brown-wooden-book-shelves-with-books-aT88kga0g_M?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+        Unsplash
+      </a>
+    </div>
+  </div>
+  <div class="library_container">
+    <div id="library_container_empty-library-message" class="library_container_empty-library-message hide">
+      <h2>Your Library is empty!</h2>
+      <p class="library_container_empty-text">Add books to see them appear here</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
