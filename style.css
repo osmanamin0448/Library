@@ -1,393 +1,113 @@
-@font-face {
-    font-family: 'Cinzel';
-    src: url('fonts/Cinzel-Regular.woff2') format('woff2'),
-        url('fonts/Cinzel-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@font-face {
-    font-family: 'Source Sans 3';
-    src: url('fonts/SourceSans3-Italic.woff2') format('woff2'),
-        url('fonts/SourceSans3-Italic.woff') format('woff');
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap;
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
 }
 
-@font-face {
-    font-family: 'Source Sans 3';
-    src: url('fonts/SourceSans3-Roman.woff2') format('woff2'),
-        url('fonts/SourceSans3-Roman.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-:root {
-  --saturn: #f8e5be;
-  --gold-rush: #c6a878;
-  --black-panther: #464039;
-  --black-panther-80: rgba(70, 64, 57, 80%);
-  --major-brown: #62544a;
-
-  --light-text-color: var(--saturn);
-  --dark-background-color: var(--black-panther);
-
-  --border-radius: 10px;
-
-  --slider-active-color: #da884c;
-}
-
-* {
-  font-family: 'Source Sans 3', sans-serif;
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
 }
 
 body {
-  display: grid;
-  grid-template-rows: auto 2fr 3fr;
-  grid-template-areas:
-    "navbar"
-    "add-book_container"
-    "library_container";
-  height: 100vh;
-}
-
-h2 {
-  font-family: 'Cinzel', serif;
-}
-
-nav {
-  padding: 20px 0px;
-  background-color: var(--black-panther);
-  grid-area: navbar;
-}
-
-nav > ul {
-  display: flex;
-  gap: 3rem
-}
-
-nav li {
-  list-style-type: none;
-}
-
-nav a {
-  display: flex;
-  gap: 1rem;
-
-  font-family: 'Cinzel', serif;
-  color: var(--light-text-color);
-  font-size: x-large;
-  font-weight: bold;
-  align-items: center;
-
-  text-decoration: none;
-}
-
-.add-book_container {
-  grid-area: add-book_container;
-  background-image: url("img/peter-herrmann-aT88kga0g_M-unsplash.jpg");
-  background-size: contain;
-  position: relative;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.background-image-citation {
-  font-size: x-small;
-  color: var(--gold-rush);
-  position: absolute;
-  bottom: 0;
-  right: 10px;
-}
-
-.background-image-citation a {
-  text-decoration: none;
-  color: var(--light-text-color);
-}
-
-.library_container {
-  grid-area: library_container;
-  background-color: var(--gold-rush);
-  color: var(--dark-background-color);
-}
-
-.library_container_grid {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  padding: 40px;
-  gap: 30px;
-}
-
-.library_container_flex {
-  display: flex;
-  justify-content: center;
-}
-
-.library_container_empty-library-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 2rem;
-}
-
-.library_container_empty-text {
-  font-weight: bold;
-}
-
-.hide {
-  display: none;
-}
-
-.add-book_overlay {
-  background-color: var(--black-panther-80);
-  padding: 30px 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  border-radius: var(--border-radius);
-  margin: 20px;
-}
-
-.add-book_title {
-  font-family: 'Cinzel', serif;
-  color: var(--light-text-color);
-  font-size: xx-large;
-  font-weight: bolder;
-  line-height: 1;
-}
-
-.add-book_subtitle {
-  font-size: large;
-  font-weight: bold;
-  color: var(--light-text-color);
-}
-
-.add-book_overlay button {
-  background-color: transparent;
-  color: var(--light-text-color);
-  border: solid var(--light-text-color) 1px;
-  padding: 5px 10px;
-  border-radius: var(--border-radius);
-  font-weight: bold;
-  font-size: large;
-}
-
-.add-book_overlay button:active,
-.add-book_overlay button:hover {
-  background-color: var(--light-text-color);
-  color: var(--dark-background-color);
-}
-
- /* The Modal (background) */
-.add-book_modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.add-book_modal_form {
-  position: relative;
-  background-color: var(--gold-rush);
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  width: 80%; /* Could be more or less, depending on screen size */
-  max-width: 25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  border-radius: var(--border-radius);
-}
-
-.add-book_modal_title {
-  color: var(--dark-background-color);
-}
-
-.add-book_modal_form_label {
-  display: flex;
-  flex-direction: column;
-}
-
-/* The Close Button */
-.add-book_modal_close {
-  position: absolute;
-  top: 0px;
-  right: 15px;
-  color: var(--dark-background-color);
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.add-book_modal_close:hover,
-.add-book_modal_close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.last-row-container {
-  display: flex;
-  flex-grow: 1;
-  align-items: flex-end;
-}
-
-.last-row-container_content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.last-row-container_content_have-read-container {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-
-.add-book_modal button {
-  background-color: transparent;
-}
-
-.add-book_modal_close {
-  border: none;
-}
-
-#add-book_save {
-  color: var(--dark-background-color);
-  font-weight: bold;
-  border: solid var(--dark-background-color) 1px;
-  padding: 5px 10px;
-  border-radius: var(--border-radius);
-}
-
-#add-book_save:hover,
-#add-book_save:active {
-  background-color: var(--dark-background-color);
-  color: var(--light-text-color);
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  border: solid var(--dark-background-color) 1px;
-  padding: 20px;
-  color: var(--light-text-color);
-  background-color: var(--dark-background-color);
-  border-radius: var(--border-radius);
-
+  /* 4. Increase line-height */
   line-height: 1.5;
-
-  box-shadow: var(--major-brown) 2px 3px 3px 1px;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
 }
 
-.card-title {
-  font-family: 'Cinzel', serif;
-  font-size: x-large;
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
 }
 
-hr {
-  border-color: var(--dark-background-color);
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
 }
 
-.card button {
-  background-color: transparent;
-  border: none;
-  background-image: url("icons/trash-can-outline.svg");
-  background-repeat: no-repeat;
-  height: 2rem;
-  aspect-ratio: 1 / 1;
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
 }
 
-.card button:hover,
-.card button:active {
-  background-image: url("icons/trash-can.svg");
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
 }
 
-.have-read-container {
-  display: flex;
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+
+
+
+
+dialog{
+  background-color: goldenrod;
+  border-radius: 20px;
+}
+
+form{
+  background-color:goldenrod;
+  display: grid;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  border-radius: 10px;
+}
+form div{
+  display: grid;
+  margin-bottom: 10px;
+}
+form div label{
+  font-size: 0.9em;
+}
+form div input{
+  border-radius: 5px;
+  border: none;
+  width: 300px;
 }
 
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 30px;
+#checkbox input{
+  width:20px;
   height: 20px;
-  border: solid var(--dark-background-color) 1px;
-  border-radius: 34px;
 }
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+form .buttons-div{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 
-/* The slider */
-.slider {
-  position: absolute;
+}
+.buttons-div #add-button{
+  background-color: green;
+  border: none;
+  border-radius: 5px;
+}
+#add-button:hover{
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #a6a2a5;
-  -webkit-transition: .4s;
-  transition: .4s;
+  background-color: lightgreen;
 }
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 13px;
-  width: 13px;
-  left: 4px;
-  bottom: 3px;
-  background-color: white;
-  border: solid var(--dark-background-color) 1px;
-  -webkit-transition: .4s;
-  transition: .4s;
+.buttons-div #cancel-button{
+  background-color: red;
+  border: none;
+  border-radius: 5px;
 }
-
-input:checked + .slider {
-  background-color: var(--slider-active-color);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--slider-active-color);
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(8px);
-  -ms-transform: translateX(8px);
-  transform: translateX(8px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+#cancel-button:hover{
+  cursor: pointer;
+  background-color: lightcoral;
 }
