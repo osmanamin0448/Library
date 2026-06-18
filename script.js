@@ -7,6 +7,9 @@ function Book(title, author, pages,read){
   this.pages = pages;
   this.read = read;
 }
+Book.prototype.toggleRead = function(){
+  this.read = !this.read;
+}
 
 
 function addBookToLibrary(title, author, pages, read){
@@ -28,7 +31,7 @@ function displayBook(){
     //assing each book a uniqes id
     shelve.dataset.id = book.id;
 
-    shelve.innerHTML = `${book.title} by ${book.author}, ${book.pages}, ${book.read}`;
+    shelve.innerHTML = `${book.title} by ${book.author}, ${book.pages}, ${book.read? "Read" : "Not Read"}`;
 
     library.appendChild(shelve);
 
@@ -47,6 +50,17 @@ function displayBook(){
 
       displayBook()
     })
+
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.textContent = "Toggle Read";
+
+    toggleBtn.addEventListener("click", () => {
+      book.toggleRead();
+      displayBook();
+    });
+
+    shelve.append(toggleBtn)
   })
   
 }
