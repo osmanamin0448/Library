@@ -31,10 +31,25 @@ function displayBook(){
     shelve.innerHTML = `${book.title} by ${book.author}, ${book.pages}, ${book.read}`;
 
     library.appendChild(shelve);
-  })
-}
-//displayBook()
 
+    const deleteBook = document.createElement("button");
+    deleteBook.textContent = "Delete Book";
+    shelve.appendChild(deleteBook);
+
+
+    //deleting form array. Always remember to user "spice" method.
+    deleteBook.addEventListener("click", () => {
+      const bookId = shelve.dataset.id;
+      
+      const index = myLibrary.findIndex(book => bookId.id === bookId);
+
+      myLibrary.splice(index,1);
+
+      displayBook()
+    })
+  })
+  
+}
 
 
 //Adding book using dialog;
@@ -45,8 +60,6 @@ const bookForm = dialog.querySelector("#book-form");
 addBook.addEventListener("click", ()=>{
   dialog.showModal();
 })
-
-
 
 bookForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -69,7 +82,5 @@ const cancelBtn = document.querySelector("#cancel-button");
 cancelBtn.addEventListener("click", () => {
   dialog.close();
 })
-
-
 
 
