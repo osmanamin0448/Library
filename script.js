@@ -27,16 +27,37 @@ function displayBook(){
 
   myLibrary.forEach(book =>{
     const shelve = document.createElement("div");
+    const bookTitle = document.createElement("h1");
+    const bookAuthor = document.createElement("p");
+    const bookPage = document.createElement("p");
+    const bookRead = document.createElement("p");
 
     //assing each book a uniqes id
     shelve.dataset.id = book.id;
 
-    shelve.innerHTML = `${book.title} by ${book.author}, ${book.pages}, ${book.read? "Read" : "Not Read"}`;
+    //Assing create para to the book attribute to appear in column
+    bookTitle.textContent = book.title;
+    bookAuthor.textContent = book.author;
+    bookPage.textContent = book.pages;
+    bookRead.textContent = book.read ? "Read" : "Not read"
 
+    //Adding a class name to stlye in CSS file
+    shelve.classList.add("shelve");
+    bookTitle.classList.add("book-title");
+    bookAuthor.classList.add("book-author");
+    bookPage.classList.add("book-pages");
+    bookRead.classList.add("book-read");
+
+    //Appending created book to the windo
     library.appendChild(shelve);
+    shelve.appendChild(bookTitle);
+    shelve.appendChild(bookAuthor);
+    shelve.appendChild(bookPage);
+    shelve.appendChild(bookRead);
 
     const deleteBook = document.createElement("button");
     deleteBook.textContent = "Delete Book";
+    deleteBook.classList.add("delete")
     shelve.appendChild(deleteBook);
 
 
@@ -44,7 +65,7 @@ function displayBook(){
     deleteBook.addEventListener("click", () => {
       const bookId = shelve.dataset.id;
       
-      const index = myLibrary.findIndex(book => bookId.id === bookId);
+      const index = myLibrary.findIndex(book => book.id === bookId);
 
       myLibrary.splice(index,1);
 
@@ -53,7 +74,8 @@ function displayBook(){
 
 
     const toggleBtn = document.createElement("button");
-    toggleBtn.textContent = "Toggle Read";
+    toggleBtn.textContent = "read status";
+    toggleBtn.classList.add("toggle")
 
     toggleBtn.addEventListener("click", () => {
       book.toggleRead();
