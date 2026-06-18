@@ -54,8 +54,60 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+@font-face {
+  font-family: "Norsebold";
+  src: url("./Norsebold.otf");
+}
 
+body{display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: goldenrod
+}
 
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color:brown;
+  padding: 10px;
+}
+
+header .logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 300px;
+  padding: 20px;
+}
+
+header .logo-image{
+  width: 50px;
+  height: 50px;
+}
+header h1{
+  font-family: "Norsebold";
+}
+.main-container{
+  flex: auto;
+}
+.main-container .library-image{
+  height: 400px;
+  width: 100%;  
+}
+.add-book{
+  font-family: "Norsebold";
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(195, 74, 74);
+}
+.add-book:hover{
+  background-color: rgb(117, 9, 9);
+  cursor: pointer;
+}
 
 dialog{
   background-color: goldenrod;
@@ -110,4 +162,13 @@ form .buttons-div{
 #cancel-button:hover{
   cursor: pointer;
   background-color: lightcoral;
+}
+
+footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  background-color: brown;
+  height: 50px;
 }
